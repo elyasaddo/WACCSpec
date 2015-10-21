@@ -286,11 +286,11 @@ The statement must be given a valid WACC type \synt{type}, a variable name \synt
 
 Variable names must not clash with the keywords of the WACC language.
 
-They can consist of a mixture of lowercase and upper letters, numbers, and underscores, but it cannot begin with a digit.
+They can consist of a mixture of lowercase and upper letters, numbers, and underscores, but they cannot begin with a digit.
 
 The initial assignment to a variable follows all of the assignment restrictions discussed in detail in the assignment statement section below.
 
-A variable must be declared before it\'s used, and must be assigned a type at the time of declaration.
+A variable must be declared before it's used, and must be assigned a type at the time of declaration.
 
 Any attempt to access an undeclared variable results in a Semantic Error (Exit Code 200).
 
@@ -423,7 +423,7 @@ or an expression enclosed by parenthesis.
 
 We discuss the meaning of each of these expressions in more detail below.
 
-The expressions of the WACC language have been chosen to be side-effect free. Side-effect free means that the function does not mutate any state, however a new state can be returned. It also has no interaction with the calling function.
+The expressions of the WACC language have been chosen to be side-effect free. A function that is side-effect free cannot mutate global state, or variables outside its own scope. This makes it incapable of performing IO, interacting with the calling function and limits it to only calling side-effect free functions itself.
 
 \paragraph{Integer Literals:}
 An integer literal \synt{int-liter} consists of a sequence of decimal digits.
@@ -503,8 +503,8 @@ All unary operators have the same precedence, they are evaluated from right to l
     \lit{!} & \lit*{bool} & \lit*{bool} & Logical Not \\
     \lit{-} & \lit*{int} & \lit*{int} & Negation \\
     \lit{len} & T\lit*{[]} & \lit*{int} & Array Length \\
-    \lit{ord} & \lit{char} & \lit{int} & Ordinal Value \\
-    \lit{chr} & \lit{int} & \lit{char} & Char Value \\
+    \lit{ord} & \lit*{char} & \lit*{int} & Ordinal Value \\
+    \lit{chr} & \lit*{int} & \lit*{char} & Char Value \\
     \hline
   \end{tabulary}
   \caption{The unary operators of the WACC language with their types and meanings.}
@@ -565,7 +565,7 @@ The result of a division operation is positive if both its dividend and divisor 
 The result of a modulus operation has the same sign as its dividend.
 
 \item The \lit{>}, \lit{>=}, \lit{<} and \lit{<=} operators perform a comparison test on the evaluations of their sub expressions.
-They accept expressions of type \lit{int} or \lit{char}, but both expressions must have the same type.
+They accept expressions of type \lit{int} or \lit{char}, but both arguments must have the same type.
 The result is \lit{true} if the comparison of the evaluated expressions is true.
 Otherwise, the result it \lit{false}.
 
